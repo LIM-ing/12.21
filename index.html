@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<style type="text/css">
+			video,body{
+				touch-action: none;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<video controls loop width="100%" height="100%">	
+			<source src="video/e5ff-3444-11eb-aaff-00163e143aa6.MP4" type="video/mp4"></source>
+		</video>
+	</body>
+	<!--<script src="js/3.4-jquery.min.js" type="text/javascript" charset="utf-8"></script>-->
+	<script type="text/javascript" src="js/zepto.js" ></script>
+	<script type="text/javascript">
+		Zepto(function(){
+			let index=0
+			$.ajax({
+				type:"get",
+				url:"js/mp4.json",
+				dataType:'json',
+				success:function(data){
+					console.log(data)
+					r(data)
+				}
+			});
+			function r(data){
+				let min_index=0
+				let max_index=data.length-1
+				console.log(data[index].url)
+				$('video').attr('src',data[index].url)
+				$('video').swipeDown(function(){
+					if(index!==max_index){
+						index++
+						$('video').attr('src',data[index].url)
+					}	
+				})
+				$('video').swipeUp(function(){
+//					alert(1)
+					if(index!==min_index){
+						index--
+						$('video').attr('src',data[index].url)
+					}
+				})
+			}
+		})
+	</script>
+</html>
